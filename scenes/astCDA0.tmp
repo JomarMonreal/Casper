@@ -8,7 +8,6 @@ radius = 5.60357
 
 [node name="Asteroid" type="RigidBody2D"]
 z_index = 10
-position = Vector2(337, 182)
 contact_monitor = true
 max_contacts_reported = 3
 script = ExtResource("1_fjivf")
@@ -22,8 +21,4 @@ texture = ExtResource("1_r0416")
 scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_d8slm")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.12
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]

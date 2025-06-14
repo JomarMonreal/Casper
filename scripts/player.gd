@@ -19,7 +19,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_hooking_on_cooldown: return
 	
-	if obstacle_hooked:
+	if is_instance_valid(obstacle_hooked):
 		var distance = obstacle_hooked.global_position.distance_to(global_position)
 		if distance > hook_radius:
 			print(distance)
@@ -41,6 +41,9 @@ func _process(delta: float) -> void:
 			return
 
 		obstacle_hooked.previous_position = obstacle_hooked.global_position
+	elif obstacle_hooked:
+		obstacle_hooked = null
+		hook_cooldown_timer.start()
 			
 	if InputMap.has_action("hook") and Input.is_action_just_pressed("hook"):
 		if obstacles_incoming.size() > 0:

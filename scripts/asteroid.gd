@@ -6,9 +6,12 @@ extends RigidBody2D
 var initial_position: Vector2
 var direction = Vector2(0, 1)
 var previous_position: Vector2
+var death_timer: Timer
+var asteroid_collided: Asteroid
 
 func _ready() -> void:
 	initial_position = self.position
+	death_timer = $Timer
 	linear_velocity = direction * asteroid_speed
 
 func _physics_process(delta: float) -> void:
@@ -21,4 +24,21 @@ func _physics_process(delta: float) -> void:
 	if global_position.y > 2000:
 		global_position = initial_position
 		linear_velocity = direction * asteroid_speed
+	
+
+func destroy_nodes() -> void:
+	if is_instance_valid(asteroid_collided):
+		asteroid_collided.queue_free()
+	if is_instance_valid(self):
+		queue_free()
+		death_timer.stop()
+
+func _on_body_entered(body: Node) -> void:
+	if body is Asteroid:
+		asteroid_collided = body
+		death_timer.start()
+
+
+func _on_timer_timeout() -> void:
+	destroy_nodes()
 	
