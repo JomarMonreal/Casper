@@ -7,9 +7,9 @@
 position = Vector2(9, -261)
 
 [node name="AsteroidGenerator" type="Node2D" parent="."]
-position = Vector2(-23, 26)
+position = Vector2(27, -4)
 script = ExtResource("1_v64cl")
 
 [node name="Player" parent="." instance=ExtResource("2_a00ne")]
-position = Vector2(755.999, 974)
+position = Vector2(520, 750)
 scale = Vector2(0.999849, 0.999849)

@@ -21,9 +21,11 @@ func _physics_process(delta: float) -> void:
 		linear_velocity = direction * asteroid_speed
 
 	# Reset if it goes too far
-	if global_position.y > 2000:
-		global_position = initial_position
-		linear_velocity = direction * asteroid_speed
+	if global_position.y > 1500 or global_position.y < -1500:
+		global_position.y *= -1
+	if global_position.x > 2500 or global_position.x < -2500:
+		global_position.x *=- 1	
+	
 	
 
 func destroy_nodes() -> void:
