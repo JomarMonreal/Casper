@@ -13,7 +13,7 @@ radius = 32.0
 radius = 9.39533
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(41.6667, 0)
+position = Vector2(41.6667, 66.6667)
 disable_mode = 1
 motion_mode = 1
 script = ExtResource("2_he2w6")

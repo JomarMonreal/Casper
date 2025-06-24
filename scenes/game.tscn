@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ck3qai2pw8agm"]
 
 [ext_resource type="Script" path="res://scripts/asteroid_generator.gd" id="1_v64cl"]
-[ext_resource type="PackedScene" uid="uid://dbt0fxebehus3" path="res://scenes/player.tscn" id="2_a00ne"]
+[ext_resource type="PackedScene" uid="uid://0rqy8h81std6" path="res://scenes/spider.tscn" id="2_oxx7t"]
 
 [node name="Game" type="Node2D"]
 position = Vector2(9, -261)
@@ -10,6 +10,5 @@ position = Vector2(9, -261)
 position = Vector2(27, -4)
 script = ExtResource("1_v64cl")
 
-[node name="Player" parent="." instance=ExtResource("2_a00ne")]
-position = Vector2(520, 750)
-scale = Vector2(0.999849, 0.999849)
+[node name="Spider" parent="." instance=ExtResource("2_oxx7t")]
+position = Vector2(543, 789)

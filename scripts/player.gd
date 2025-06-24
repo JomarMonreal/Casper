@@ -10,8 +10,8 @@ var rotation_speed = 8
 var is_hooking_on_cooldown = false
 var hook_cooldown_timer: Timer
 var hook_radius = 150
-var obstacles_incoming: Array[Asteroid] = []
-var obstacle_hooked: Asteroid
+var obstacles_incoming: Array[Obstacle] = []
+var obstacle_hooked: Obstacle
 
 func _ready() -> void:
 	hook_cooldown_timer = $Timer
@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 	if InputMap.has_action("hook") and Input.is_action_just_pressed("hook"):
 		if obstacles_incoming.size() > 0:
 			# Find the closest asteroid
-			var closest: Asteroid = obstacles_incoming[0]
+			var closest: Obstacle = obstacles_incoming[0]
 			var closest_distance = closest.global_position.distance_to(global_position)
 
 			for asteroid in obstacles_incoming:
@@ -96,7 +96,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if obstacle_hooked or is_hooking_on_cooldown: return
 
 	var asteroid = body
-	if asteroid is Asteroid and asteroid not in obstacles_incoming:
+	if asteroid is Obstacle and asteroid not in obstacles_incoming:
 		obstacles_incoming.append(asteroid)
 		print("Obstacle entered:", obstacles_incoming)
 
@@ -104,6 +104,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if obstacle_hooked or is_hooking_on_cooldown: return
 
 	var asteroid = body
-	if asteroid is Asteroid and asteroid in obstacles_incoming:
+	if asteroid is Obstacle and asteroid in obstacles_incoming:
 		obstacles_incoming.erase(asteroid)
 		print("Obstacle exited:", obstacles_incoming)
