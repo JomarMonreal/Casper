@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck3qai2pw8agm"]
+
+[ext_resource type="Script" uid="uid://cd2tlywmahcec" path="res://Core/GameManager.gd" id="1_t3eon"]
+[ext_resource type="Script" uid="uid://bw78vbupbmorw" path="res://Core/LevelLoader.gd" id="2_xt2r0"]
+
+[node name="Game" type="Node" node_paths=PackedStringArray("level_loader")]
+script = ExtResource("1_t3eon")
+level_loader = NodePath("LevelLoader")
+
+[node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
+script = ExtResource("2_xt2r0")
+level_container = NodePath("../LevelContainer")
+
+[node name="LevelContainer" type="Node2D" parent="."]
