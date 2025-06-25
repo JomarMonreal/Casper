@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Swinging"
-run/main_scene="res://Levels/game.tscn"
+run/main_scene="res://Core/game.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://Prototyping/icon.svg"
 
