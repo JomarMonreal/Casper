@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck3qai2pw8agm"]
+
+[ext_resource type="Script" uid="uid://b4dtwho3gewlj" path="res://Objects/Generator/obstacle_generator_1.gd" id="1_uxjsv"]
+[ext_resource type="PackedScene" uid="uid://0rqy8h81std6" path="res://Objects/Spider/spider.tscn" id="2_6isyr"]
+
+[node name="Game" type="Node2D"]
+
+[node name="AsteroidGenerator" type="Node2D" parent="."]
+position = Vector2(27, -4)
+script = ExtResource("1_uxjsv")
+
+[node name="Spider" parent="." instance=ExtResource("2_6isyr")]
+position = Vector2(512, 528)

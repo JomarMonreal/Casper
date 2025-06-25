@@ -1,24 +1,23 @@
 [gd_scene load_steps=7 format=3 uid="uid://b4r5d6qrexcr0"]
 
-[ext_resource type="Script" uid="uid://caaghfcr7y7js" path="res://scripts/obstacle/obstacle.gd" id="1_fjivf"]
-[ext_resource type="Texture2D" uid="uid://cviblfm7dnusg" path="res://assets/Asteroid Huge.png" id="1_r0416"]
-[ext_resource type="Script" uid="uid://d0esmi83g4bc6" path="res://scripts/obstacle/obstacle_state_manager.gd" id="3_pxh8h"]
-[ext_resource type="Script" uid="uid://m8e3vp0b0r47" path="res://scripts/obstacle/states/obstacle_moving.gd" id="4_3aerp"]
-[ext_resource type="Script" uid="uid://cssfxp16xvd" path="res://scripts/obstacle/states/obstacle_hooked.gd" id="5_r5ivq"]
+[ext_resource type="Script" uid="uid://caaghfcr7y7js" path="res://Objects/Obstacle/scripts/obstacle.gd" id="1_ncgno"]
+[ext_resource type="Texture2D" uid="uid://cviblfm7dnusg" path="res://Prototyping/Asteroid Huge.png" id="2_ndysw"]
+[ext_resource type="Script" uid="uid://d0esmi83g4bc6" path="res://Objects/Obstacle/scripts/obstacle_state_manager.gd" id="3_lkfqp"]
+[ext_resource type="Script" uid="uid://m8e3vp0b0r47" path="res://Objects/Obstacle/scripts/states/obstacle_moving.gd" id="4_ivyhu"]
+[ext_resource type="Script" uid="uid://cssfxp16xvd" path="res://Objects/Obstacle/scripts/states/obstacle_hooked.gd" id="5_vnq2d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8slm"]
 radius = 5.60357
 
 [node name="Asteroid" type="RigidBody2D"]
 z_index = 10
-position = Vector2(337, 182)
 contact_monitor = true
 max_contacts_reported = 3
-script = ExtResource("1_fjivf")
+script = ExtResource("1_ncgno")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.282197, 0.282197)
-texture = ExtResource("1_r0416")
+texture = ExtResource("2_ndysw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(5, 5)
@@ -28,13 +27,13 @@ shape = SubResource("CircleShape2D_d8slm")
 wait_time = 0.12
 
 [node name="StateManager" type="Node2D" parent="."]
-script = ExtResource("3_pxh8h")
+script = ExtResource("3_lkfqp")
 
 [node name="Moving" type="Node2D" parent="StateManager"]
-script = ExtResource("4_3aerp")
+script = ExtResource("4_ivyhu")
 
 [node name="Hooked" type="Node2D" parent="StateManager"]
-script = ExtResource("5_r5ivq")
+script = ExtResource("5_vnq2d")
 
 [node name="Destroyed" type="Node2D" parent="StateManager"]
 

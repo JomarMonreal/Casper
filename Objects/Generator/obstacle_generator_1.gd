@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var asteroid_node = preload("res://scenes/asteroid.tscn")
+@export var asteroid_node = preload("res://Objects/Obstacle/obstacle.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var asteroid_count = randi_range(20, 30)

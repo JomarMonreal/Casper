@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cviblfm7dnusg"
-path="res://.godot/imported/Asteroid Huge.png-2a7c726228a97773510e0e015ae431c4.ctex"
+uid="uid://butoaf8qq5xr7"
+path="res://.godot/imported/icon.svg-b918b3dff5316ae426c072421d46dd16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Asteroid Huge.png"
-dest_files=["res://.godot/imported/Asteroid Huge.png-2a7c726228a97773510e0e015ae431c4.ctex"]
+source_file="res://Prototyping/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-b918b3dff5316ae426c072421d46dd16.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
