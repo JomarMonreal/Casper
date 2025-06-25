@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b4r5d6qrexcr0"]
 
-[ext_resource type="Script" path="res://scripts/obstacle/obstacle.gd" id="1_fjivf"]
+[ext_resource type="Script" uid="uid://caaghfcr7y7js" path="res://scripts/obstacle/obstacle.gd" id="1_fjivf"]
 [ext_resource type="Texture2D" uid="uid://cviblfm7dnusg" path="res://assets/Asteroid Huge.png" id="1_r0416"]
-[ext_resource type="Script" path="res://scripts/obstacle/obstacle_state_manager.gd" id="3_pxh8h"]
-[ext_resource type="Script" path="res://scripts/obstacle/states/obstacle_moving.gd" id="4_3aerp"]
-[ext_resource type="Script" path="res://scripts/obstacle/states/obstacle_hooked.gd" id="5_r5ivq"]
+[ext_resource type="Script" uid="uid://d0esmi83g4bc6" path="res://scripts/obstacle/obstacle_state_manager.gd" id="3_pxh8h"]
+[ext_resource type="Script" uid="uid://m8e3vp0b0r47" path="res://scripts/obstacle/states/obstacle_moving.gd" id="4_3aerp"]
+[ext_resource type="Script" uid="uid://cssfxp16xvd" path="res://scripts/obstacle/states/obstacle_hooked.gd" id="5_r5ivq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8slm"]
 radius = 5.60357

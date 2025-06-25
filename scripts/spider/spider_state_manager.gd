@@ -28,7 +28,6 @@ func init(spider: Spider) -> void:
 			child.spider = spider as Spider
 
 	change_state(SpiderBaseState.State.Idle)
-	pass
 	
 func input(event: InputEvent) -> void:
 	var new_state = current_state.input(event)

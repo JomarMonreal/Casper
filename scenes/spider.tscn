@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://0rqy8h81std6"]
 
-[ext_resource type="Script" path="res://scripts/spider/spider.gd" id="1_frjkr"]
+[ext_resource type="Script" uid="uid://3sbmcorkwjle" path="res://scripts/spider/spider.gd" id="1_frjkr"]
 [ext_resource type="Texture2D" uid="uid://butoaf8qq5xr7" path="res://assets/icon.svg" id="1_qhpok"]
-[ext_resource type="Script" path="res://scripts/spider/spider_state_manager.gd" id="3_1fpr4"]
-[ext_resource type="Script" path="res://scripts/spider/states/spider_idle.gd" id="4_jnpb2"]
-[ext_resource type="Script" path="res://scripts/spider/states/spider_moving.gd" id="5_yuuof"]
-[ext_resource type="Script" path="res://scripts/spider/states/spider_shooting_web.gd" id="6_lrkds"]
-[ext_resource type="Script" path="res://scripts/spider/states/spider_spinning.gd" id="7_645tp"]
+[ext_resource type="Script" uid="uid://dj5ul408jin5s" path="res://scripts/spider/spider_state_manager.gd" id="3_1fpr4"]
+[ext_resource type="Script" uid="uid://d0gkoqfdj534k" path="res://scripts/spider/states/spider_idle.gd" id="4_jnpb2"]
+[ext_resource type="Script" uid="uid://cg3f2irvtfmls" path="res://scripts/spider/states/spider_moving.gd" id="5_yuuof"]
+[ext_resource type="Script" uid="uid://dvr12p52tydfu" path="res://scripts/spider/states/spider_shooting_web.gd" id="6_lrkds"]
+[ext_resource type="Script" uid="uid://clolyccm2mpvc" path="res://scripts/spider/states/spider_spinning.gd" id="7_645tp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hnm67"]
 radius = 2.44691
