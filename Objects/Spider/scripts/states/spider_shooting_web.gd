@@ -3,7 +3,7 @@ extends SpiderBaseState
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(delta: float) -> int:
-	spider.move()
+	spider.move(delta)
 	
 	if spider.velocity.x == 0 and spider.velocity.y == 0:
 		return SpiderBaseState.State.Idle

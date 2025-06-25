@@ -8,9 +8,10 @@ const ROTATION_SPEED = 6
 var obstacles_incoming: Array[Obstacle] = []
 var obstacle_hooked: Obstacle
 
-@onready var states = $StateManager
+@onready var states: SpiderStateManager = $StateManager
+@onready var skill_cooldown_timer: Timer = $SkillCooldownTimer
 
-func move() -> void:
+func move(delta: float) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 	var x_direction := Input.get_axis("ui_left", "ui_right")
 	var y_direction := Input.get_axis("ui_up", "ui_down")

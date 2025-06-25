@@ -16,6 +16,9 @@ class_name SpiderStateManager
 var current_state: SpiderBaseState
 
 func change_state(new_state: int) -> void:
+	if current_state == states[new_state]:
+		return # Don't change to the same state
+	
 	if current_state:
 		current_state.exit()
 	

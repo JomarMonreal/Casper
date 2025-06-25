@@ -11,6 +11,7 @@ func input(event: InputEvent) -> int:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(delta: float) -> int:
+	spider.move(delta)
 	spider.rotation += delta
 	return SpiderBaseState.State.Idle
 	
