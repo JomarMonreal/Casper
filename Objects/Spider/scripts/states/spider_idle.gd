@@ -1,7 +1,7 @@
 extends SpiderBaseState
 
 func input(event: InputEvent) -> int:
-	
+	var spider := entity as Spider
 	if spider.hooking_obstacle():
 		return SpiderBaseState.State.Spinning
 		
@@ -11,6 +11,7 @@ func input(event: InputEvent) -> int:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(delta: float) -> int:
+	var spider := entity as Spider
 	spider.move(delta)
 	spider.rotation += delta
 	return SpiderBaseState.State.Idle

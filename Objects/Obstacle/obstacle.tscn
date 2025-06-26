@@ -26,16 +26,16 @@ shape = SubResource("CircleShape2D_d8slm")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.12
 
-[node name="StateManager" type="Node2D" parent="."]
+[node name="StateManager" type="Node" parent="."]
 script = ExtResource("3_lkfqp")
 
-[node name="Moving" type="Node2D" parent="StateManager"]
+[node name="Moving" type="Node" parent="StateManager"]
 script = ExtResource("4_ivyhu")
 
-[node name="Hooked" type="Node2D" parent="StateManager"]
+[node name="Hooked" type="Node" parent="StateManager"]
 script = ExtResource("5_vnq2d")
 
-[node name="Destroyed" type="Node2D" parent="StateManager"]
+[node name="Destroyed" type="Node" parent="StateManager"]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

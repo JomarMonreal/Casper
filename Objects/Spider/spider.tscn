@@ -49,7 +49,7 @@ polygon = PackedVector2Array(15.9775, 0, 127.82, -100.5, 127.82, 129.214, 15.977
 [node name="SkillCooldownTimer" type="Timer" parent="."]
 wait_time = 0.75
 
-[node name="StateManager" type="Node2D" parent="."]
+[node name="StateManager" type="Node" parent="."]
 script = ExtResource("3_1fpr4")
 
 [node name="Idle" type="Node" parent="StateManager"]

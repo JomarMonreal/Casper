@@ -2,6 +2,7 @@ extends SpiderBaseState
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(delta: float) -> int:
+	var spider := entity as Spider
 	if !is_instance_valid(spider.obstacle_hooked): return SpiderBaseState.State.Moving
 	var obstacle_hooked = spider.obstacle_hooked
 	

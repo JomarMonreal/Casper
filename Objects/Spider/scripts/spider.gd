@@ -66,7 +66,6 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	states.physics_process(delta)
 	
-	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var obstacle = body
 	if obstacle is Obstacle:
