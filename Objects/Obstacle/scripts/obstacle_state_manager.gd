@@ -9,4 +9,3 @@ func _ready() -> void:
 	}
 
 	initial_state = ObstacleBaseState.State.Moving
-

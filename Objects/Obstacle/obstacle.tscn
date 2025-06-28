@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4r5d6qrexcr0"]
+[gd_scene load_steps=8 format=3 uid="uid://b4r5d6qrexcr0"]
 
 [ext_resource type="Script" uid="uid://caaghfcr7y7js" path="res://Objects/Obstacle/scripts/obstacle.gd" id="1_ncgno"]
 [ext_resource type="Texture2D" uid="uid://cviblfm7dnusg" path="res://Prototyping/Asteroid Huge.png" id="2_ndysw"]
 [ext_resource type="Script" uid="uid://d0esmi83g4bc6" path="res://Objects/Obstacle/scripts/obstacle_state_manager.gd" id="3_lkfqp"]
 [ext_resource type="Script" uid="uid://m8e3vp0b0r47" path="res://Objects/Obstacle/scripts/states/obstacle_moving.gd" id="4_ivyhu"]
 [ext_resource type="Script" uid="uid://cssfxp16xvd" path="res://Objects/Obstacle/scripts/states/obstacle_hooked.gd" id="5_vnq2d"]
+[ext_resource type="Script" uid="uid://chdkujkqyvd55" path="res://Objects/Obstacle/obstacle_destroyed.gd" id="6_ndysw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8slm"]
 radius = 5.60357
@@ -23,8 +24,8 @@ texture = ExtResource("2_ndysw")
 scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_d8slm")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.12
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.2
 
 [node name="StateManager" type="Node" parent="."]
 script = ExtResource("3_lkfqp")
@@ -36,6 +37,7 @@ script = ExtResource("4_ivyhu")
 script = ExtResource("5_vnq2d")
 
 [node name="Destroyed" type="Node" parent="StateManager"]
+script = ExtResource("6_ndysw")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

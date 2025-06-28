@@ -13,7 +13,7 @@ var obstacle_collided: Obstacle
 
 func _ready() -> void:
 	initial_position = self.position
-	death_timer = $Timer
+	death_timer = $DeathTimer
 	linear_velocity = direction * asteroid_speed
 	states.init(self)
 	
@@ -25,3 +25,14 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	states.physics_process(delta)
+
+func _on_body_entered(body: Node) -> void:
+	if body is Obstacle:
+		states.change_state(ObstacleBaseState.State.Destroyed)
+		body.states.change_state(ObstacleBaseState.State.Destroyed)
+
+
+func _on_death_timer_timeout() -> void:
+	death_timer.stop()
+	queue_free()
+	return
