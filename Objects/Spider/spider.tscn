@@ -1,13 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://0rqy8h81std6"]
+[gd_scene load_steps=14 format=3 uid="uid://0rqy8h81std6"]
 
 [ext_resource type="Script" uid="uid://3sbmcorkwjle" path="res://Objects/Spider/scripts/spider.gd" id="1_frjkr"]
 [ext_resource type="Texture2D" uid="uid://butoaf8qq5xr7" path="res://Prototyping/icon.svg" id="1_qhpok"]
 [ext_resource type="Script" uid="uid://dj5ul408jin5s" path="res://Objects/Spider/scripts/spider_state_manager.gd" id="3_1fpr4"]
+[ext_resource type="Texture2D" uid="uid://cs4lj8y5jtatn" path="res://addons/simple_shapes/icons/circle.svg" id="3_6sqgb"]
 [ext_resource type="Script" uid="uid://d0gkoqfdj534k" path="res://Objects/Spider/scripts/states/spider_idle.gd" id="4_jnpb2"]
 [ext_resource type="Script" uid="uid://cg3f2irvtfmls" path="res://Objects/Spider/scripts/states/spider_moving.gd" id="5_yuuof"]
 [ext_resource type="Script" uid="uid://dvr12p52tydfu" path="res://Objects/Spider/scripts/states/spider_shooting_web.gd" id="6_lrkds"]
 [ext_resource type="Script" uid="uid://clolyccm2mpvc" path="res://Objects/Spider/scripts/states/spider_spinning.gd" id="7_645tp"]
 [ext_resource type="Script" uid="uid://dn1vm47ooea65" path="res://Objects/Spider/scripts/states/spider_relasing_web.gd" id="8_cr1pi"]
+[ext_resource type="Script" uid="uid://07yk6kw6aea5" path="res://Objects/Spider/scripts/states/spider_dashing.gd" id="10_3ed3k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hnm67"]
 radius = 2.44691
@@ -21,9 +23,15 @@ radius = 9.39533
 [node name="Spider" type="CharacterBody2D"]
 script = ExtResource("1_frjkr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="SpiderSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_qhpok")
+
+[node name="ShieldSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-3.8147e-06, -3.8147e-06)
+scale = Vector2(4.66667, 4.66667)
+texture = ExtResource("3_6sqgb")
 
 [node name="AlienCollider" type="CollisionShape2D" parent="."]
 scale = Vector2(6.53885, 6.53885)
@@ -40,14 +48,13 @@ shape = SubResource("CircleShape2D_qbx0x")
 scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_7sbr4")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-visible = false
-position = Vector2(0, -8)
-scale = Vector2(0.500705, 0.557215)
-polygon = PackedVector2Array(15.9775, 0, 127.82, -100.5, 127.82, 129.214, 15.9775, 28.7142, -15.9775, 28.7142, -127.82, 129.214, -127.82, -100.5, -15.9775, 0)
-
-[node name="SkillCooldownTimer" type="Timer" parent="."]
+[node name="WebShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.75
+
+[node name="ShieldCooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="DashingCooldownTimer" type="Timer" parent="."]
 
 [node name="StateManager" type="Node" parent="."]
 script = ExtResource("3_1fpr4")
@@ -67,9 +74,8 @@ script = ExtResource("7_645tp")
 [node name="ReleasingWeb" type="Node" parent="StateManager"]
 script = ExtResource("8_cr1pi")
 
-[node name="Shielding" type="Node" parent="StateManager"]
-
 [node name="Dashing" type="Node" parent="StateManager"]
+script = ExtResource("10_3ed3k")
 
 [node name="Hurt" type="Node" parent="StateManager"]
 
@@ -77,4 +83,6 @@ script = ExtResource("8_cr1pi")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="timeout" from="SkillCooldownTimer" to="StateManager/ReleasingWeb" method="_on_skill_cooldown_timer_timeout"]
+[connection signal="timeout" from="WebShootCooldownTimer" to="." method="_on_web_shoot_cooldown_timer_timeout"]
+[connection signal="timeout" from="ShieldCooldownTimer" to="." method="_on_shield_cooldown_timer_timeout"]
+[connection signal="timeout" from="DashingCooldownTimer" to="." method="_on_dashing_cooldown_timer_timeout"]

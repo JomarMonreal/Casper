@@ -15,4 +15,7 @@ func input(event: InputEvent) -> int:
 	var spider := entity as Spider
 	if spider.hooking_obstacle():
 		return SpiderBaseState.State.Spinning
+	if InputMap.has_action("dash") and Input.is_action_just_released("dash") and !spider.is_dashing_cooldown:
+		return SpiderBaseState.State.Dashing
+
 	return SpiderBaseState.State.Moving

@@ -7,25 +7,47 @@ const ROTATION_SPEED = 6
 
 var obstacles_incoming: Array[Obstacle] = []
 var obstacle_hooked: Obstacle
+@onready var main_sprite: Sprite2D = $SpiderSprite
+var initial_sprite_scale: Vector2
+@onready var dash_cooldown_timer: Timer = $DashingCooldownTimer
+var is_dashing_cooldown = false
 
 @onready var states: SpiderStateManager = $StateManager
-@onready var skill_cooldown_timer: Timer = $SkillCooldownTimer
+@onready var web_shoot_cooldown_timer: Timer = $WebShootCooldownTimer
 
-func move(delta: float) -> void:
+@onready var shield_sprite: Sprite2D = $ShieldSprite
+@onready var shield_cooldown_timer: Timer = $ShieldCooldownTimer
+var is_shielding = false
+
+var last_direction = Vector2.ZERO
+
+func shield() -> void:
+	if !is_shielding:
+		shield_sprite.visible = true
+		is_shielding = true
+		shield_cooldown_timer.start()
+
+func unshield() -> void:
+	shield_sprite.visible = false 
+	is_shielding = false
+	shield_cooldown_timer.stop()
+
+func move(delta: float, speed = SPEED) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 	var x_direction := Input.get_axis("ui_left", "ui_right")
 	var y_direction := Input.get_axis("ui_up", "ui_down")
 
 	if x_direction:
-		velocity.x = x_direction * SPEED
+		velocity.x = x_direction * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
 
 	if y_direction:
-		velocity.y = y_direction * SPEED
+		velocity.y = y_direction * speed
 	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-
+		velocity.y = move_toward(velocity.y, 0, speed)
+	
+	last_direction = Vector2(x_direction,y_direction)
 	move_and_slide()
 
 func hooking_obstacle() -> bool:
@@ -55,9 +77,13 @@ func hooking_obstacle() -> bool:
 	return false
 
 func _ready() -> void:
+	initial_sprite_scale = main_sprite.scale
 	states.init(self)
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if InputMap.has_action("shield") and Input.is_action_just_released("shield"):
+		shield()
+
 	states.input(event)
 	
 func _process(delta: float) -> void:
@@ -77,3 +103,14 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if obstacle is Obstacle:
 		obstacles_incoming.erase(obstacle)
 		print("Obstacle exited:", obstacles_incoming)
+
+func _on_web_shoot_cooldown_timer_timeout() -> void:
+	states.change_state(SpiderBaseState.State.Idle)
+	web_shoot_cooldown_timer.stop()
+	
+func _on_shield_cooldown_timer_timeout() -> void:
+	unshield()
+
+func _on_dashing_cooldown_timer_timeout() -> void:
+	is_dashing_cooldown = false
+	dash_cooldown_timer.stop()

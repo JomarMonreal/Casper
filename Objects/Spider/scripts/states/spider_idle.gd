@@ -14,5 +14,7 @@ func physics_process(delta: float) -> int:
 	var spider := entity as Spider
 	spider.move(delta)
 	spider.rotation += delta
+	if InputMap.has_action("dash") and Input.is_action_just_released("dash") and !spider.is_dashing_cooldown:
+		return SpiderBaseState.State.Dashing
 	return SpiderBaseState.State.Idle
 	

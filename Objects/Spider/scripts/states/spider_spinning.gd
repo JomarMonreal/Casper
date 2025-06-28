@@ -9,7 +9,6 @@ func physics_process(delta: float) -> int:
 	spider.move(delta)
 	spider.rotation += delta * spider.ROTATION_SPEED
 	
-	
 	if InputMap.has_action("hook") and Input.is_action_just_released("hook"):
 			
 		for child in obstacle_hooked.get_children():
