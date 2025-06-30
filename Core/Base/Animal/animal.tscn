@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7aqfl7gomy1o"]
+
+[ext_resource type="Script" uid="uid://byjmubb524uc8" path="res://Core/Base/Animal/base_animal.gd" id="1_w7pnt"]
+
+[node name="Animal" type="Node2D"]
+script = ExtResource("1_w7pnt")
+health = 50
+
+[node name="HurtCooldownTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="HurtCooldownTimer" to="." method="_on_hurt_cooldown_timer_timeout"]

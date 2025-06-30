@@ -1,15 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://0rqy8h81std6"]
+[gd_scene load_steps=17 format=3 uid="uid://0rqy8h81std6"]
 
 [ext_resource type="Script" uid="uid://3sbmcorkwjle" path="res://Objects/Spider/scripts/spider.gd" id="1_frjkr"]
-[ext_resource type="Texture2D" uid="uid://butoaf8qq5xr7" path="res://Prototyping/icon.svg" id="1_qhpok"]
+[ext_resource type="Texture2D" uid="uid://csegqlfs5kjc1" path="res://addons/Smol Frens Animal Sprites/Animals.png" id="2_3ed3k"]
+[ext_resource type="PackedScene" uid="uid://c7aqfl7gomy1o" path="res://Core/Base/Animal/animal.tscn" id="2_ysakg"]
 [ext_resource type="Script" uid="uid://dj5ul408jin5s" path="res://Objects/Spider/scripts/spider_state_manager.gd" id="3_1fpr4"]
 [ext_resource type="Texture2D" uid="uid://cs4lj8y5jtatn" path="res://addons/simple_shapes/icons/circle.svg" id="3_6sqgb"]
+[ext_resource type="Texture2D" uid="uid://djplq30t1urad" path="res://addons/Smol Frens Animal Sprites/AntiAliasing.png" id="3_pswlt"]
 [ext_resource type="Script" uid="uid://d0gkoqfdj534k" path="res://Objects/Spider/scripts/states/spider_idle.gd" id="4_jnpb2"]
 [ext_resource type="Script" uid="uid://cg3f2irvtfmls" path="res://Objects/Spider/scripts/states/spider_moving.gd" id="5_yuuof"]
 [ext_resource type="Script" uid="uid://dvr12p52tydfu" path="res://Objects/Spider/scripts/states/spider_shooting_web.gd" id="6_lrkds"]
 [ext_resource type="Script" uid="uid://clolyccm2mpvc" path="res://Objects/Spider/scripts/states/spider_spinning.gd" id="7_645tp"]
 [ext_resource type="Script" uid="uid://dn1vm47ooea65" path="res://Objects/Spider/scripts/states/spider_relasing_web.gd" id="8_cr1pi"]
 [ext_resource type="Script" uid="uid://07yk6kw6aea5" path="res://Objects/Spider/scripts/states/spider_dashing.gd" id="10_3ed3k"]
+[ext_resource type="Script" uid="uid://cukjq8d4bslmc" path="res://Objects/Spider/scripts/states/spider_dead.gd" id="13_ysakg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hnm67"]
 radius = 2.44691
@@ -23,9 +26,24 @@ radius = 9.39533
 [node name="Spider" type="CharacterBody2D"]
 script = ExtResource("1_frjkr")
 
+[node name="Base Collider" type="CollisionShape2D" parent="."]
+scale = Vector2(6.53885, 6.53885)
+shape = SubResource("CircleShape2D_hnm67")
+
+[node name="Animal" parent="." instance=ExtResource("2_ysakg")]
+
 [node name="SpiderSprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_qhpok")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_3ed3k")
+region_enabled = true
+region_rect = Rect2(152, 152, 32, 32)
+
+[node name="DeadSprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_pswlt")
+region_enabled = true
+region_rect = Rect2(152, 152, 32, 32)
 
 [node name="ShieldSprite" type="Sprite2D" parent="."]
 visible = false
@@ -33,11 +51,8 @@ position = Vector2(-3.8147e-06, -3.8147e-06)
 scale = Vector2(4.66667, 4.66667)
 texture = ExtResource("3_6sqgb")
 
-[node name="AlienCollider" type="CollisionShape2D" parent="."]
-scale = Vector2(6.53885, 6.53885)
-shape = SubResource("CircleShape2D_hnm67")
-
 [node name="BodyArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea"]
 shape = SubResource("CircleShape2D_qbx0x")
@@ -77,10 +92,12 @@ script = ExtResource("8_cr1pi")
 [node name="Dashing" type="Node" parent="StateManager"]
 script = ExtResource("10_3ed3k")
 
-[node name="Hurt" type="Node" parent="StateManager"]
-
 [node name="Dead" type="Node" parent="StateManager"]
+script = ExtResource("13_ysakg")
 
+[connection signal="can_take_damage" from="Animal" to="." method="_on_animal_can_take_damage"]
+[connection signal="damaged" from="Animal" to="." method="_on_animal_damaged"]
+[connection signal="dead" from="Animal" to="." method="_on_animal_dead"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="WebShootCooldownTimer" to="." method="_on_web_shoot_cooldown_timer_timeout"]

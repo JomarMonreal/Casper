@@ -30,6 +30,9 @@ func _on_body_entered(body: Node) -> void:
 	if body is Obstacle:
 		states.change_state(ObstacleBaseState.State.Destroyed)
 		body.states.change_state(ObstacleBaseState.State.Destroyed)
+	if body is Spider:
+		body.animal_props.take_damage(10)
+		
 
 
 func _on_death_timer_timeout() -> void:

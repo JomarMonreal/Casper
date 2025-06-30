@@ -16,9 +16,3 @@ func physics_process(delta: float) -> int:
 		obstacle.global_position.x *=- 1	
 	
 	return ObstacleBaseState.State.Moving
-
-
-func _on_asteroid_body_entered(body: Node) -> void:
-	var obstacle := entity as Obstacle
-	
-	pass # Replace with function body.
