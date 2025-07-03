@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DebugRuntimeSettings" load_steps=2 format=3 uid="uid://dm7s1ekk46t7"]
+
+[ext_resource type="Script" uid="uid://xpqwprmu51xo" path="res://Debug/debug_runtime_settings.gd" id="1_ac7eq"]
+
+[resource]
+script = ExtResource("1_ac7eq")
+show_debug_shapes_on_runtime = false
+metadata/_custom_type_script = "uid://xpqwprmu51xo"

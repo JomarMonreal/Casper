@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Spawnable" load_steps=3 format=3 uid="uid://din2jdalpbyb2"]
+
+[ext_resource type="Script" uid="uid://ica2nbyxv758" path="res://Objects/Enemies/spawnable.gd" id="1_3vns1"]
+[ext_resource type="PackedScene" uid="uid://b4r5d6qrexcr0" path="res://Objects/Obstacle/obstacle.tscn" id="2_ecw6k"]
+
+[resource]
+script = ExtResource("1_3vns1")
+spawnable = ExtResource("2_ecw6k")
+spawn_rate = 0.2
+metadata/_custom_type_script = "uid://ica2nbyxv758"

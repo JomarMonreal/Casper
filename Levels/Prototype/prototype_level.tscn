@@ -1,13 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://h8ksfshtgrq1"]
+[gd_scene load_steps=5 format=3 uid="uid://h8ksfshtgrq1"]
 
-[ext_resource type="Script" uid="uid://b4dtwho3gewlj" path="res://Levels/Prototype/obstacle_generator_1.gd" id="1_de2tq"]
 [ext_resource type="PackedScene" uid="uid://0rqy8h81std6" path="res://Objects/Spider/spider.tscn" id="2_y138k"]
+[ext_resource type="PackedScene" uid="uid://dv2ny2ta77bfq" path="res://Levels/Prototype/EnemySpawner/EnemySpawner.tscn" id="3_y138k"]
+[ext_resource type="Script" uid="uid://ica2nbyxv758" path="res://Objects/Enemies/spawnable.gd" id="4_h66lb"]
+[ext_resource type="Resource" uid="uid://din2jdalpbyb2" path="res://Levels/Prototype/EnemySpawner/enemy1.tres" id="5_vk62w"]
 
 [node name="PrototypeLevel" type="Node2D"]
 
-[node name="AsteroidGenerator" type="Node2D" parent="."]
-position = Vector2(27, -4)
-script = ExtResource("1_de2tq")
-
 [node name="Spider" parent="." instance=ExtResource("2_y138k")]
 position = Vector2(512, 528)
+
+[node name="EnemyContainer" type="Node2D" parent="." groups=["ENEMY_CONTAINER"]]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_y138k")]
+position = Vector2(37, 444)
+width = 500
+height = 185
+spawnables = Array[ExtResource("4_h66lb")]([ExtResource("5_vk62w")])
+
+[node name="EnemySpawner2" parent="." instance=ExtResource("3_y138k")]
+position = Vector2(1594, 444)
+width = 120
+height = 280
+spawnables = Array[ExtResource("4_h66lb")]([ExtResource("5_vk62w")])
+
+[node name="EnemySpawner3" parent="." instance=ExtResource("3_y138k")]
+position = Vector2(897, 444)
+width = 275
+height = 170
+spawnables = Array[ExtResource("4_h66lb")]([ExtResource("5_vk62w")])
