@@ -12,7 +12,7 @@ func input(event: InputEvent) -> int:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(delta: float) -> int:
 	var spider := entity as Spider
-	spider.move(delta)
+	spider.character_movement.move(delta)
 	spider.rotation += delta
 	if InputMap.has_action("dash") and Input.is_action_just_released("dash") and !spider.is_dashing_cooldown:
 		return SpiderBaseState.State.Dashing

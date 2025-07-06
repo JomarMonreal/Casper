@@ -6,7 +6,7 @@ func physics_process(delta: float) -> int:
 	if !is_instance_valid(spider.obstacle_hooked): return SpiderBaseState.State.Moving
 	var obstacle_hooked = spider.obstacle_hooked
 	
-	spider.move(delta)
+	spider.character_movement.move(delta)
 	spider.rotation += delta * spider.ROTATION_SPEED
 	
 	if InputMap.has_action("hook") and Input.is_action_just_released("hook"):

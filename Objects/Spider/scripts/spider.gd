@@ -7,7 +7,9 @@ const ROTATION_SPEED = 6
 
 var obstacles_incoming: Array[Obstacle] = []
 var obstacle_hooked: Obstacle
-@onready var animal_props: Animal = $Animal
+@onready var health_controller: HealthController = $HealthController
+@onready var character_movement: TopDownCharacterMovement = $TopDownCharacterMovement
+@onready var states: SpiderStateManager = $StateManager
 
 @onready var main_sprite: Sprite2D = $SpiderSprite
 @onready var dead_sprite: Sprite2D = $DeadSprite
@@ -16,14 +18,11 @@ var initial_sprite_scale: Vector2
 @onready var dash_cooldown_timer: Timer = $DashingCooldownTimer
 var is_dashing_cooldown = false
 
-@onready var states: SpiderStateManager = $StateManager
 @onready var web_shoot_cooldown_timer: Timer = $WebShootCooldownTimer
 
 @onready var shield_sprite: Sprite2D = $ShieldSprite
 @onready var shield_cooldown_timer: Timer = $ShieldCooldownTimer
 var is_shielding = false
-
-var last_direction = Vector2.ZERO
 
 func shield() -> void:
 	if !is_shielding:
@@ -40,31 +39,12 @@ func hurt() -> void:
 	dead_sprite.visible = true
 	main_sprite.self_modulate.g = 0.5
 	main_sprite.self_modulate.b = 0.5
-	print("Player health: ", animal_props.health)
+	print("Player health: ", health_controller.health)
 		
 func unhurt() -> void:
 	main_sprite.self_modulate.g = 1
 	main_sprite.self_modulate.b = 1
 	dead_sprite.visible = false
-		
-
-func move(delta: float, speed = SPEED) -> void:
-		# As good practice, you should replace UI actions with custom gameplay actions.
-	var x_direction := Input.get_axis("ui_left", "ui_right")
-	var y_direction := Input.get_axis("ui_up", "ui_down")
-
-	if x_direction:
-		velocity.x = x_direction * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-
-	if y_direction:
-		velocity.y = y_direction * speed
-	else:
-		velocity.y = move_toward(velocity.y, 0, speed)
-	
-	last_direction = Vector2(x_direction,y_direction)
-	move_and_slide()
 
 func hooking_obstacle() -> bool:
 	if InputMap.has_action("hook") and Input.is_action_just_pressed("hook") and obstacles_incoming.size() > 0:
@@ -136,4 +116,13 @@ func _on_animal_damaged(amount: float) -> void:
 	hurt()
 
 func _on_animal_dead() -> void:
+	states.change_state(SpiderBaseState.State.Dead)
+
+func _on_health_controller_can_take_damage() -> void:
+	unhurt()
+
+func _on_health_controller_damaged(amount: float) -> void:
+	hurt()
+
+func _on_health_controller_dead() -> void:
 	states.change_state(SpiderBaseState.State.Dead)

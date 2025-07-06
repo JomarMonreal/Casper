@@ -1,4 +1,4 @@
-class_name Animal
+class_name HealthController
 extends Node2D
 
 @export var health = 100

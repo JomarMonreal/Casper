@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://0rqy8h81std6"]
+[gd_scene load_steps=18 format=3 uid="uid://0rqy8h81std6"]
 
 [ext_resource type="Script" uid="uid://3sbmcorkwjle" path="res://Objects/Spider/scripts/spider.gd" id="1_frjkr"]
 [ext_resource type="Texture2D" uid="uid://csegqlfs5kjc1" path="res://addons/Smol Frens Animal Sprites/Animals.png" id="2_3ed3k"]
-[ext_resource type="PackedScene" uid="uid://c7aqfl7gomy1o" path="res://Core/Base/Animal/animal.tscn" id="2_ysakg"]
+[ext_resource type="PackedScene" uid="uid://c7aqfl7gomy1o" path="res://Core/Components/Health/HealthController.tscn" id="2_ysakg"]
 [ext_resource type="Script" uid="uid://dj5ul408jin5s" path="res://Objects/Spider/scripts/spider_state_manager.gd" id="3_1fpr4"]
 [ext_resource type="Texture2D" uid="uid://cs4lj8y5jtatn" path="res://addons/simple_shapes/icons/circle.svg" id="3_6sqgb"]
+[ext_resource type="Script" uid="uid://cgb4kx4dpyqaj" path="res://Core/Components/Movement/top_down_character_movement.gd" id="3_cc524"]
 [ext_resource type="Texture2D" uid="uid://djplq30t1urad" path="res://addons/Smol Frens Animal Sprites/AntiAliasing.png" id="3_pswlt"]
 [ext_resource type="Script" uid="uid://d0gkoqfdj534k" path="res://Objects/Spider/scripts/states/spider_idle.gd" id="4_jnpb2"]
 [ext_resource type="Script" uid="uid://cg3f2irvtfmls" path="res://Objects/Spider/scripts/states/spider_moving.gd" id="5_yuuof"]
@@ -30,7 +31,10 @@ script = ExtResource("1_frjkr")
 scale = Vector2(6.53885, 6.53885)
 shape = SubResource("CircleShape2D_hnm67")
 
-[node name="Animal" parent="." instance=ExtResource("2_ysakg")]
+[node name="HealthController" parent="." instance=ExtResource("2_ysakg")]
+
+[node name="TopDownCharacterMovement" type="Node2D" parent="."]
+script = ExtResource("3_cc524")
 
 [node name="SpiderSprite" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -95,9 +99,9 @@ script = ExtResource("10_3ed3k")
 [node name="Dead" type="Node" parent="StateManager"]
 script = ExtResource("13_ysakg")
 
-[connection signal="can_take_damage" from="Animal" to="." method="_on_animal_can_take_damage"]
-[connection signal="damaged" from="Animal" to="." method="_on_animal_damaged"]
-[connection signal="dead" from="Animal" to="." method="_on_animal_dead"]
+[connection signal="can_take_damage" from="HealthController" to="." method="_on_health_controller_can_take_damage"]
+[connection signal="damaged" from="HealthController" to="." method="_on_health_controller_damaged"]
+[connection signal="dead" from="HealthController" to="." method="_on_health_controller_dead"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="WebShootCooldownTimer" to="." method="_on_web_shoot_cooldown_timer_timeout"]

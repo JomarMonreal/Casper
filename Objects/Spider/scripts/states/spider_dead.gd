@@ -22,7 +22,4 @@ func physics_process(delta: float) -> int:
 	spider.main_sprite.self_modulate.g = 0.5 * sin(oscillation_time * (PI/2)) + 0.5
 	spider.main_sprite.self_modulate.b = 0.5 * sin(oscillation_time * (PI/2)) + 0.5
 	
-	
-
-	
 	return SpiderBaseState.State.Dead

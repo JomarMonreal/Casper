@@ -10,7 +10,7 @@ func enter() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(delta: float) -> int:
 	var spider := entity as Spider
-	spider.move(delta)		
+	spider.character_movement.move(delta)		
 	oscillation_time += delta
 	var scale = 0.1 * sin(oscillation_time * oscillation_speed) + 1
 	spider.scale = Vector2(scale, scale)
