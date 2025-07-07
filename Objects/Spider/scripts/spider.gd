@@ -8,16 +8,14 @@ const ROTATION_SPEED = 6
 var obstacles_incoming: Array[Obstacle] = []
 var obstacle_hooked: Obstacle
 @onready var health_controller: HealthController = $HealthController
+@onready var dash_controller: DashController = $DashController
 @onready var character_movement: TopDownCharacterMovement = $TopDownCharacterMovement
 @onready var states: SpiderStateManager = $StateManager
 @onready var shield: Shield = $Shield
 
 @onready var main_sprite: Sprite2D = $SpiderSprite
 @onready var dead_sprite: Sprite2D = $DeadSprite
-
 var initial_sprite_scale: Vector2
-@onready var dash_cooldown_timer: Timer = $DashingCooldownTimer
-var is_dashing_cooldown = false
 
 @onready var web_shoot_cooldown_timer: Timer = $WebShootCooldownTimer
 
@@ -87,10 +85,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _on_web_shoot_cooldown_timer_timeout() -> void:
 	states.change_state(SpiderBaseState.State.Idle)
 	web_shoot_cooldown_timer.stop()
-
-func _on_dashing_cooldown_timer_timeout() -> void:
-	is_dashing_cooldown = false
-	dash_cooldown_timer.stop()
 
 func _on_health_controller_can_take_damage() -> void:
 	unhurt()

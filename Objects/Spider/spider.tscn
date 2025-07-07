@@ -1,16 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://0rqy8h81std6"]
+[gd_scene load_steps=18 format=3 uid="uid://0rqy8h81std6"]
 
 [ext_resource type="Script" uid="uid://3sbmcorkwjle" path="res://Objects/Spider/scripts/spider.gd" id="1_frjkr"]
 [ext_resource type="Texture2D" uid="uid://csegqlfs5kjc1" path="res://addons/Smol Frens Animal Sprites/Animals.png" id="2_3ed3k"]
 [ext_resource type="PackedScene" uid="uid://c7aqfl7gomy1o" path="res://Core/Components/Health/HealthController.tscn" id="2_ysakg"]
 [ext_resource type="Script" uid="uid://dj5ul408jin5s" path="res://Objects/Spider/scripts/spider_state_manager.gd" id="3_1fpr4"]
-[ext_resource type="Script" uid="uid://cgb4kx4dpyqaj" path="res://Core/Components/Movement/top_down_character_movement.gd" id="3_cc524"]
 [ext_resource type="Texture2D" uid="uid://djplq30t1urad" path="res://addons/Smol Frens Animal Sprites/AntiAliasing.png" id="3_pswlt"]
 [ext_resource type="Script" uid="uid://d0gkoqfdj534k" path="res://Objects/Spider/scripts/states/spider_idle.gd" id="4_jnpb2"]
 [ext_resource type="PackedScene" uid="uid://6csiflmt3fc5" path="res://Core/Components/Shield/shield.tscn" id="5_cc524"]
+[ext_resource type="PackedScene" uid="uid://b7bjep8u7hjca" path="res://Core/Components/Movement/top_down_character_movement.tscn" id="5_puoqw"]
 [ext_resource type="Script" uid="uid://cg3f2irvtfmls" path="res://Objects/Spider/scripts/states/spider_moving.gd" id="5_yuuof"]
 [ext_resource type="Script" uid="uid://dvr12p52tydfu" path="res://Objects/Spider/scripts/states/spider_shooting_web.gd" id="6_lrkds"]
 [ext_resource type="Script" uid="uid://clolyccm2mpvc" path="res://Objects/Spider/scripts/states/spider_spinning.gd" id="7_645tp"]
+[ext_resource type="PackedScene" uid="uid://depxr6ywtd6lx" path="res://Core/Components/Movement/dash_controller.tscn" id="7_ptre8"]
 [ext_resource type="Script" uid="uid://dn1vm47ooea65" path="res://Objects/Spider/scripts/states/spider_relasing_web.gd" id="8_cr1pi"]
 [ext_resource type="Script" uid="uid://07yk6kw6aea5" path="res://Objects/Spider/scripts/states/spider_dashing.gd" id="10_3ed3k"]
 [ext_resource type="Script" uid="uid://cukjq8d4bslmc" path="res://Objects/Spider/scripts/states/spider_dead.gd" id="13_ysakg"]
@@ -30,17 +31,6 @@ texture = ExtResource("2_3ed3k")
 region_enabled = true
 region_rect = Rect2(152, 152, 32, 32)
 
-[node name="Base Collider" type="CollisionShape2D" parent="."]
-scale = Vector2(6.53885, 6.53885)
-shape = SubResource("CircleShape2D_hnm67")
-
-[node name="HealthController" parent="." instance=ExtResource("2_ysakg")]
-
-[node name="TopDownCharacterMovement" type="Node2D" parent="."]
-script = ExtResource("3_cc524")
-
-[node name="Shield" parent="." instance=ExtResource("5_cc524")]
-
 [node name="DeadSprite" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2(1.5, 1.5)
@@ -48,16 +38,26 @@ texture = ExtResource("3_pswlt")
 region_enabled = true
 region_rect = Rect2(152, 152, 32, 32)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Base Collider" type="CollisionShape2D" parent="."]
+scale = Vector2(6.53885, 6.53885)
+shape = SubResource("CircleShape2D_hnm67")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="HealthController" parent="." instance=ExtResource("2_ysakg")]
+
+[node name="TopDownCharacterMovement" parent="." instance=ExtResource("5_puoqw")]
+
+[node name="Shield" parent="." instance=ExtResource("5_cc524")]
+
+[node name="DashController" parent="." instance=ExtResource("7_ptre8")]
+
+[node name="ObstacleDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleDetector"]
 scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_7sbr4")
 
 [node name="WebShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.75
-
-[node name="DashingCooldownTimer" type="Timer" parent="."]
 
 [node name="StateManager" type="Node" parent="."]
 script = ExtResource("3_1fpr4")
@@ -86,7 +86,7 @@ script = ExtResource("13_ysakg")
 [connection signal="can_take_damage" from="HealthController" to="." method="_on_health_controller_can_take_damage"]
 [connection signal="damaged" from="HealthController" to="." method="_on_health_controller_damaged"]
 [connection signal="dead" from="HealthController" to="." method="_on_health_controller_dead"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="dash_finished" from="DashController" to="StateManager/Dashing" method="_on_dash_controller_dash_finished"]
+[connection signal="body_entered" from="ObstacleDetector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="ObstacleDetector" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="WebShootCooldownTimer" to="." method="_on_web_shoot_cooldown_timer_timeout"]
-[connection signal="timeout" from="DashingCooldownTimer" to="." method="_on_dashing_cooldown_timer_timeout"]
