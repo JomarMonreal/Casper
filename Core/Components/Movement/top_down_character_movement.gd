@@ -25,8 +25,9 @@ func move(delta: float) -> void:
 		velocity.y = y_direction * speed
 	else:
 		velocity.y = move_toward(velocity.y, 0, speed)
-
-	last_direction = Vector2(x_direction, y_direction)
+	
+	if velocity != Vector2.ZERO:
+		last_direction = Vector2(x_direction, y_direction)
 
 	if controlled_body:
 		controlled_body.velocity = velocity

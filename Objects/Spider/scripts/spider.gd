@@ -10,6 +10,7 @@ var obstacle_hooked: Obstacle
 @onready var health_controller: HealthController = $HealthController
 @onready var character_movement: TopDownCharacterMovement = $TopDownCharacterMovement
 @onready var states: SpiderStateManager = $StateManager
+@onready var shield: Shield = $Shield
 
 @onready var main_sprite: Sprite2D = $SpiderSprite
 @onready var dead_sprite: Sprite2D = $DeadSprite
@@ -20,21 +21,6 @@ var is_dashing_cooldown = false
 
 @onready var web_shoot_cooldown_timer: Timer = $WebShootCooldownTimer
 
-@onready var shield_sprite: Sprite2D = $ShieldSprite
-@onready var shield_cooldown_timer: Timer = $ShieldCooldownTimer
-var is_shielding = false
-
-func shield() -> void:
-	if !is_shielding:
-		shield_sprite.visible = true
-		is_shielding = true
-		shield_cooldown_timer.start()
-
-func unshield() -> void:
-	shield_sprite.visible = false 
-	is_shielding = false
-	shield_cooldown_timer.stop()
-	
 func hurt() -> void:
 	dead_sprite.visible = true
 	main_sprite.self_modulate.g = 0.5
@@ -78,7 +64,7 @@ func _ready() -> void:
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if InputMap.has_action("shield") and Input.is_action_just_released("shield"):
-		shield()
+		shield.open()
 
 	states.input(event)
 	
@@ -101,22 +87,10 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _on_web_shoot_cooldown_timer_timeout() -> void:
 	states.change_state(SpiderBaseState.State.Idle)
 	web_shoot_cooldown_timer.stop()
-	
-func _on_shield_cooldown_timer_timeout() -> void:
-	unshield()
 
 func _on_dashing_cooldown_timer_timeout() -> void:
 	is_dashing_cooldown = false
 	dash_cooldown_timer.stop()
-	
-func _on_animal_can_take_damage() -> void:
-	unhurt()
-
-func _on_animal_damaged(amount: float) -> void:
-	hurt()
-
-func _on_animal_dead() -> void:
-	states.change_state(SpiderBaseState.State.Dead)
 
 func _on_health_controller_can_take_damage() -> void:
 	unhurt()

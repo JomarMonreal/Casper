@@ -10,7 +10,7 @@ var target_position: Vector2
 func enter() -> void:
 	var spider := entity as Spider
 	initial_position = spider.global_position
-	target_position = initial_position + (spider.last_direction * dash_distance)
+	target_position = initial_position + (spider.character_movement.last_direction * dash_distance)
 	spider.main_sprite.scale =  spider.initial_sprite_scale * dashing_scale
 	spider.is_dashing_cooldown = true
 	spider.dash_cooldown_timer.start()
