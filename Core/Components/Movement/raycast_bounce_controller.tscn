@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://djblec6n1bmww"]
+
+[ext_resource type="Script" uid="uid://cf57mjrbkckfn" path="res://Core/Components/Movement/raycast_bounce_controller.gd" id="1_51h2g"]
+
+[node name="RaycastBounceController" type="Node2D"]
+script = ExtResource("1_51h2g")
