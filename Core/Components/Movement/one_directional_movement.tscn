@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cccxibigj4ief"]
+
+[ext_resource type="Script" uid="uid://clify2dgdbarq" path="res://Core/Components/Movement/one_directional_movement.gd" id="1_2y4ap"]
+
+[node name="OneDirectionalMovement" type="Node2D"]
+script = ExtResource("1_2y4ap")
+speed = 200.0

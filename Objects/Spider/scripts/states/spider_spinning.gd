@@ -17,8 +17,8 @@ func physics_process(delta: float) -> int:
 				child.change_state(ObstacleBaseState.State.Moving)
 		
 		var direction_vector = (obstacle_hooked.global_position - obstacle_hooked.previous_position).normalized()
-		obstacle_hooked.direction = direction_vector
-		obstacle_hooked.asteroid_speed *= 2
+		obstacle_hooked.movement.direction = direction_vector
+		obstacle_hooked.movement.speed *= 2
 		
 		obstacle_hooked = null
 		return SpiderBaseState.State.ReleasingWeb

@@ -1,9 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://h8ksfshtgrq1"]
+[gd_scene load_steps=9 format=3 uid="uid://h8ksfshtgrq1"]
 
 [ext_resource type="PackedScene" uid="uid://0rqy8h81std6" path="res://Objects/Spider/spider.tscn" id="2_y138k"]
 [ext_resource type="PackedScene" uid="uid://dv2ny2ta77bfq" path="res://Levels/Prototype/EnemySpawner/EnemySpawner.tscn" id="3_y138k"]
 [ext_resource type="Script" uid="uid://ica2nbyxv758" path="res://Objects/Enemies/spawnable.gd" id="4_h66lb"]
 [ext_resource type="Resource" uid="uid://din2jdalpbyb2" path="res://Levels/Prototype/EnemySpawner/enemy1.tres" id="5_vk62w"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0eufj"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h66lb"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vk62w"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d2clt"]
+normal = Vector2(-1, 0)
 
 [node name="PrototypeLevel" type="Node2D"]
 
@@ -16,19 +27,51 @@ position = Vector2(512, 528)
 position = Vector2(960, 540)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_y138k")]
-position = Vector2(37, 444)
+position = Vector2(200, 384)
+width = 500
+height = 185
+spawnables = Array[ExtResource("4_h66lb")]([ExtResource("5_vk62w")])
+
+[node name="EnemySpawner4" parent="." instance=ExtResource("3_y138k")]
+position = Vector2(144, 880)
 width = 500
 height = 185
 spawnables = Array[ExtResource("4_h66lb")]([ExtResource("5_vk62w")])
 
 [node name="EnemySpawner2" parent="." instance=ExtResource("3_y138k")]
-position = Vector2(1594, 444)
+position = Vector2(1128, 816)
 width = 120
 height = 280
 spawnables = Array[ExtResource("4_h66lb")]([ExtResource("5_vk62w")])
 
 [node name="EnemySpawner3" parent="." instance=ExtResource("3_y138k")]
-position = Vector2(897, 444)
+position = Vector2(1192, 432)
 width = 275
 height = 170
 spawnables = Array[ExtResource("4_h66lb")]([ExtResource("5_vk62w")])
+
+[node name="WorldBoundaryTop" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryTop"]
+position = Vector2(768, 128)
+shape = SubResource("WorldBoundaryShape2D_0eufj")
+
+[node name="WorldBoundaryBottom" type="StaticBody2D" parent="."]
+position = Vector2(832, 312)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryBottom"]
+position = Vector2(-64, 648)
+shape = SubResource("WorldBoundaryShape2D_h66lb")
+
+[node name="WorldBoundaryLeft" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryLeft"]
+position = Vector2(64, 560)
+shape = SubResource("WorldBoundaryShape2D_vk62w")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1848, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(8, 0)
+shape = SubResource("WorldBoundaryShape2D_d2clt")

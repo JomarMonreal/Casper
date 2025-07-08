@@ -1,5 +1,7 @@
 extends ObstacleBaseState
 
+@export var movement_offset = 5
+
 func enter() -> void:
 	var obstacle := entity as Obstacle
 	obstacle.freeze = false
@@ -7,7 +9,7 @@ func enter() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_process(delta: float) -> int:
 	var obstacle := entity as Obstacle
-	obstacle.linear_velocity = obstacle.direction * obstacle.asteroid_speed
+	obstacle.movement.move(delta)
 
 	# Reset if it goes too far
 	# if obstacle.global_position.y > 1500 or obstacle.global_position.y < -1500:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4r5d6qrexcr0"]
+[gd_scene load_steps=9 format=3 uid="uid://b4r5d6qrexcr0"]
 
 [ext_resource type="Script" uid="uid://caaghfcr7y7js" path="res://Objects/Obstacle/scripts/obstacle.gd" id="1_ncgno"]
+[ext_resource type="PackedScene" uid="uid://cccxibigj4ief" path="res://Core/Components/Movement/one_directional_movement.tscn" id="2_lkfqp"]
 [ext_resource type="Texture2D" uid="uid://cviblfm7dnusg" path="res://Prototyping/Asteroid Huge.png" id="2_ndysw"]
 [ext_resource type="Script" uid="uid://d0esmi83g4bc6" path="res://Objects/Obstacle/scripts/obstacle_state_manager.gd" id="3_lkfqp"]
 [ext_resource type="Script" uid="uid://m8e3vp0b0r47" path="res://Objects/Obstacle/scripts/states/obstacle_moving.gd" id="4_ivyhu"]
@@ -15,6 +16,9 @@ z_index = 10
 contact_monitor = true
 max_contacts_reported = 3
 script = ExtResource("1_ncgno")
+
+[node name="OneDirectionalMovement" parent="." instance=ExtResource("2_lkfqp")]
+is_randomized = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.282197, 0.282197)
